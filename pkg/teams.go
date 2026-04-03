@@ -6,37 +6,38 @@ import (
 	"strings"
 )
 
+// Team IDs that map to the current MLB clubs in the Stats API.
 const (
-	TeamLosAngelesAngels     TeamID = 108
-	TeamArizonaDiamondbacks  TeamID = 109
-	TeamBaltimoreOrioles     TeamID = 110
-	TeamBostonRedSox         TeamID = 111
-	TeamChicagoCubs          TeamID = 112
-	TeamCincinnatiReds       TeamID = 113
-	TeamClevelandGuardians   TeamID = 114
-	TeamColoradoRockies      TeamID = 115
-	TeamDetroitTigers        TeamID = 116
-	TeamHoustonAstros        TeamID = 117
-	TeamKansasCityRoyals     TeamID = 118
-	TeamLosAngelesDodgers    TeamID = 119
-	TeamWashingtonNationals  TeamID = 120
-	TeamNewYorkMets          TeamID = 121
-	TeamAthletics            TeamID = 133
-	TeamPittsburghPirates    TeamID = 134
-	TeamSanDiegoPadres       TeamID = 135
-	TeamSeattleMariners      TeamID = 136
-	TeamSanFranciscoGiants   TeamID = 137
-	TeamStLouisCardinals     TeamID = 138
-	TeamTampaBayRays         TeamID = 139
-	TeamTexasRangers         TeamID = 140
-	TeamTorontoBlueJays      TeamID = 141
-	TeamMinnesotaTwins       TeamID = 142
-	TeamPhiladelphiaPhillies TeamID = 143
-	TeamAtlantaBraves        TeamID = 144
-	TeamChicagoWhiteSox      TeamID = 145
-	TeamMiamiMarlins         TeamID = 146
-	TeamNewYorkYankees       TeamID = 147
-	TeamMilwaukeeBrewers     TeamID = 158
+	TeamLosAngelesAngels     TeamID = 108 // Los Angeles Angels.
+	TeamArizonaDiamondbacks  TeamID = 109 // Arizona Diamondbacks.
+	TeamBaltimoreOrioles     TeamID = 110 // Baltimore Orioles.
+	TeamBostonRedSox         TeamID = 111 // Boston Red Sox.
+	TeamChicagoCubs          TeamID = 112 // Chicago Cubs.
+	TeamCincinnatiReds       TeamID = 113 // Cincinnati Reds.
+	TeamClevelandGuardians   TeamID = 114 // Cleveland Guardians.
+	TeamColoradoRockies      TeamID = 115 // Colorado Rockies.
+	TeamDetroitTigers        TeamID = 116 // Detroit Tigers.
+	TeamHoustonAstros        TeamID = 117 // Houston Astros.
+	TeamKansasCityRoyals     TeamID = 118 // Kansas City Royals.
+	TeamLosAngelesDodgers    TeamID = 119 // Los Angeles Dodgers.
+	TeamWashingtonNationals  TeamID = 120 // Washington Nationals.
+	TeamNewYorkMets          TeamID = 121 // New York Mets.
+	TeamAthletics            TeamID = 133 // Athletics.
+	TeamPittsburghPirates    TeamID = 134 // Pittsburgh Pirates.
+	TeamSanDiegoPadres       TeamID = 135 // San Diego Padres.
+	TeamSeattleMariners      TeamID = 136 // Seattle Mariners.
+	TeamSanFranciscoGiants   TeamID = 137 // San Francisco Giants.
+	TeamStLouisCardinals     TeamID = 138 // St. Louis Cardinals.
+	TeamTampaBayRays         TeamID = 139 // Tampa Bay Rays.
+	TeamTexasRangers         TeamID = 140 // Texas Rangers.
+	TeamTorontoBlueJays      TeamID = 141 // Toronto Blue Jays.
+	TeamMinnesotaTwins       TeamID = 142 // Minnesota Twins.
+	TeamPhiladelphiaPhillies TeamID = 143 // Philadelphia Phillies.
+	TeamAtlantaBraves        TeamID = 144 // Atlanta Braves.
+	TeamChicagoWhiteSox      TeamID = 145 // Chicago White Sox.
+	TeamMiamiMarlins         TeamID = 146 // Miami Marlins.
+	TeamNewYorkYankees       TeamID = 147 // New York Yankees.
+	TeamMilwaukeeBrewers     TeamID = 158 // Milwaukee Brewers.
 )
 
 var knownTeams = []Team{
@@ -105,10 +106,12 @@ var teamByName = func() map[string]Team {
 	return index
 }()
 
+// Int returns the raw integer value used by the MLB Stats API.
 func (id TeamID) Int() int {
 	return int(id)
 }
 
+// String returns the full team name for known IDs.
 func (id TeamID) String() string {
 	if team, ok := TeamByID(id); ok {
 		return team.Name
@@ -116,27 +119,32 @@ func (id TeamID) String() string {
 	return fmt.Sprintf("TeamID(%d)", int(id))
 }
 
+// AllTeams returns a copy of the built-in team metadata list.
 func AllTeams() []Team {
 	out := make([]Team, len(knownTeams))
 	copy(out, knownTeams)
 	return out
 }
 
+// TeamByID looks up a team by its stable TeamID.
 func TeamByID(id TeamID) (Team, bool) {
 	team, ok := teamByID[id]
 	return team, ok
 }
 
+// TeamByAbbreviation looks up a team by its MLB abbreviation.
 func TeamByAbbreviation(abbreviation string) (Team, bool) {
 	team, ok := teamByAbbreviation[strings.ToUpper(strings.TrimSpace(abbreviation))]
 	return team, ok
 }
 
+// TeamByName looks up a team by common display names and aliases.
 func TeamByName(name string) (Team, bool) {
 	team, ok := teamByName[strings.ToLower(strings.TrimSpace(name))]
 	return team, ok
 }
 
+// SortTeamsByID sorts teams in place by ascending TeamID.
 func SortTeamsByID(teams []Team) {
 	sort.Slice(teams, func(i, j int) bool {
 		return teams[i].ID < teams[j].ID

@@ -12,10 +12,16 @@ import (
 	"time"
 )
 
+// JSON is the generic object shape returned by raw endpoint calls.
 type JSON = map[string]any
 
+// Params contains endpoint parameters passed to raw endpoint calls.
+//
+// Keys are matched against endpoint path parameters and query parameters.
+// Values are stringified before being sent to the MLB Stats API.
 type Params map[string]any
 
+// PathParamDefinition describes how a path parameter is rendered for an endpoint.
 type PathParamDefinition struct {
 	Type          string
 	Default       string
@@ -27,6 +33,7 @@ type PathParamDefinition struct {
 	Required      bool
 }
 
+// EndpointDefinition describes a raw MLB Stats API endpoint.
 type EndpointDefinition struct {
 	Name           string
 	PathTemplate   string
@@ -37,13 +44,16 @@ type EndpointDefinition struct {
 	Note           string
 }
 
+// Client is an MLB Stats API client.
 type Client struct {
 	BaseURL    string
 	HTTPClient *http.Client
 }
 
+// Option configures a Client created by NewClient.
 type Option func(*Client)
 
+// WithBaseURL overrides the default Stats API base URL for a client.
 func WithBaseURL(baseURL string) Option {
 	return func(c *Client) {
 		if strings.TrimSpace(baseURL) != "" {
@@ -52,6 +62,7 @@ func WithBaseURL(baseURL string) Option {
 	}
 }
 
+// WithHTTPClient sets the HTTP client used for requests.
 func WithHTTPClient(httpClient *http.Client) Option {
 	return func(c *Client) {
 		if httpClient != nil {
@@ -60,6 +71,7 @@ func WithHTTPClient(httpClient *http.Client) Option {
 	}
 }
 
+// NewClient creates a new MLB Stats API client.
 func NewClient(opts ...Option) *Client {
 	client := &Client{
 		BaseURL:    DefaultBaseURL,
@@ -75,20 +87,25 @@ func NewClient(opts ...Option) *Client {
 	return client
 }
 
+// DefaultClient is the package-level client used by package helper functions.
 var DefaultClient = NewClient()
 
+// Get performs a raw endpoint call using DefaultClient.
 func Get(ctx context.Context, endpoint string, params Params) (JSON, error) {
 	return DefaultClient.Get(ctx, endpoint, params)
 }
 
+// GetForce performs a raw endpoint call and forces unknown parameters into the query string.
 func GetForce(ctx context.Context, endpoint string, params Params) (JSON, error) {
 	return DefaultClient.GetForce(ctx, endpoint, params)
 }
 
+// Get performs a raw endpoint call using the receiver client.
 func (c *Client) Get(ctx context.Context, endpoint string, params Params) (JSON, error) {
 	return c.get(ctx, endpoint, params, false)
 }
 
+// GetForce performs a raw endpoint call using the receiver client and forces unknown parameters into the query string.
 func (c *Client) GetForce(ctx context.Context, endpoint string, params Params) (JSON, error) {
 	return c.get(ctx, endpoint, params, true)
 }
@@ -138,6 +155,7 @@ func (c *Client) fetchJSON(ctx context.Context, endpoint, requestURL string, tar
 	return nil
 }
 
+// Notes returns local documentation for a raw endpoint, including supported parameters and any endpoint notes.
 func (c *Client) Notes(endpoint string) (string, error) {
 	definition, ok := defaultEndpoints[endpoint]
 	if !ok {
@@ -186,6 +204,7 @@ func (c *Client) Notes(endpoint string) (string, error) {
 	return builder.String(), nil
 }
 
+// Notes returns local documentation for a raw endpoint using DefaultClient metadata.
 func Notes(endpoint string) (string, error) {
 	return DefaultClient.Notes(endpoint)
 }

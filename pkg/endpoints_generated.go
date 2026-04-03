@@ -818,520 +818,649 @@ var defaultEndpoints = map[string]EndpointDefinition{
 	},
 }
 
+// EndpointNames returns the set of raw endpoint keys supported by the package.
 func EndpointNames() []string {
 	out := make([]string, len(endpointNames))
 	copy(out, endpointNames)
 	return out
 }
 
+// CallAttendance calls the raw "attendance" endpoint using the receiver client.
 func (c *Client) CallAttendance(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "attendance", params)
 }
 
+// CallAttendance calls the raw endpoint using DefaultClient.
 func CallAttendance(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallAttendance(ctx, params)
 }
 
+// CallAwards calls the raw "awards" endpoint using the receiver client.
 func (c *Client) CallAwards(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "awards", params)
 }
 
+// CallAwards calls the raw endpoint using DefaultClient.
 func CallAwards(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallAwards(ctx, params)
 }
 
+// CallConferences calls the raw "conferences" endpoint using the receiver client.
 func (c *Client) CallConferences(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "conferences", params)
 }
 
+// CallConferences calls the raw endpoint using DefaultClient.
 func CallConferences(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallConferences(ctx, params)
 }
 
+// CallDivisions calls the raw "divisions" endpoint using the receiver client.
 func (c *Client) CallDivisions(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "divisions", params)
 }
 
+// CallDivisions calls the raw endpoint using DefaultClient.
 func CallDivisions(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallDivisions(ctx, params)
 }
 
+// CallDraft calls the raw "draft" endpoint using the receiver client.
 func (c *Client) CallDraft(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "draft", params)
 }
 
+// CallDraft calls the raw endpoint using DefaultClient.
 func CallDraft(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallDraft(ctx, params)
 }
 
+// CallGame calls the raw "game" endpoint using the receiver client.
 func (c *Client) CallGame(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game", params)
 }
 
+// CallGame calls the raw endpoint using DefaultClient.
 func CallGame(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGame(ctx, params)
 }
 
+// CallGamePace calls the raw "gamePace" endpoint using the receiver client.
 func (c *Client) CallGamePace(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "gamePace", params)
 }
 
+// CallGamePace calls the raw endpoint using DefaultClient.
 func CallGamePace(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGamePace(ctx, params)
 }
 
+// CallGameBoxscore calls the raw "game_boxscore" endpoint using the receiver client.
 func (c *Client) CallGameBoxscore(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_boxscore", params)
 }
 
+// CallGameBoxscore calls the raw endpoint using DefaultClient.
 func CallGameBoxscore(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameBoxscore(ctx, params)
 }
 
+// CallGameChanges calls the raw "game_changes" endpoint using the receiver client.
 func (c *Client) CallGameChanges(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_changes", params)
 }
 
+// CallGameChanges calls the raw endpoint using DefaultClient.
 func CallGameChanges(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameChanges(ctx, params)
 }
 
+// CallGameColor calls the raw "game_color" endpoint using the receiver client.
 func (c *Client) CallGameColor(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_color", params)
 }
 
+// CallGameColor calls the raw endpoint using DefaultClient.
 func CallGameColor(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameColor(ctx, params)
 }
 
+// CallGameColorDiff calls the raw "game_color_diff" endpoint using the receiver client.
 func (c *Client) CallGameColorDiff(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_color_diff", params)
 }
 
+// CallGameColorDiff calls the raw endpoint using DefaultClient.
 func CallGameColorDiff(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameColorDiff(ctx, params)
 }
 
+// CallGameColorTimestamps calls the raw "game_color_timestamps" endpoint using the receiver client.
 func (c *Client) CallGameColorTimestamps(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_color_timestamps", params)
 }
 
+// CallGameColorTimestamps calls the raw endpoint using DefaultClient.
 func CallGameColorTimestamps(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameColorTimestamps(ctx, params)
 }
 
+// CallGameContent calls the raw "game_content" endpoint using the receiver client.
 func (c *Client) CallGameContent(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_content", params)
 }
 
+// CallGameContent calls the raw endpoint using DefaultClient.
 func CallGameContent(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameContent(ctx, params)
 }
 
+// CallGameContextMetrics calls the raw "game_contextMetrics" endpoint using the receiver client.
 func (c *Client) CallGameContextMetrics(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_contextMetrics", params)
 }
 
+// CallGameContextMetrics calls the raw endpoint using DefaultClient.
 func CallGameContextMetrics(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameContextMetrics(ctx, params)
 }
 
+// CallGameDiff calls the raw "game_diff" endpoint using the receiver client.
 func (c *Client) CallGameDiff(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_diff", params)
 }
 
+// CallGameDiff calls the raw endpoint using DefaultClient.
 func CallGameDiff(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameDiff(ctx, params)
 }
 
+// CallGameLinescore calls the raw "game_linescore" endpoint using the receiver client.
 func (c *Client) CallGameLinescore(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_linescore", params)
 }
 
+// CallGameLinescore calls the raw endpoint using DefaultClient.
 func CallGameLinescore(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameLinescore(ctx, params)
 }
 
+// CallGamePlayByPlay calls the raw "game_playByPlay" endpoint using the receiver client.
 func (c *Client) CallGamePlayByPlay(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_playByPlay", params)
 }
 
+// CallGamePlayByPlay calls the raw endpoint using DefaultClient.
 func CallGamePlayByPlay(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGamePlayByPlay(ctx, params)
 }
 
+// CallGameTimestamps calls the raw "game_timestamps" endpoint using the receiver client.
 func (c *Client) CallGameTimestamps(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_timestamps", params)
 }
 
+// CallGameTimestamps calls the raw endpoint using DefaultClient.
 func CallGameTimestamps(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameTimestamps(ctx, params)
 }
 
+// CallGameUniforms calls the raw "game_uniforms" endpoint using the receiver client.
 func (c *Client) CallGameUniforms(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_uniforms", params)
 }
 
+// CallGameUniforms calls the raw endpoint using DefaultClient.
 func CallGameUniforms(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameUniforms(ctx, params)
 }
 
+// CallGameWinProbability calls the raw "game_winProbability" endpoint using the receiver client.
 func (c *Client) CallGameWinProbability(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "game_winProbability", params)
 }
 
+// CallGameWinProbability calls the raw endpoint using DefaultClient.
 func CallGameWinProbability(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallGameWinProbability(ctx, params)
 }
 
+// CallHighLow calls the raw "highLow" endpoint using the receiver client.
 func (c *Client) CallHighLow(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "highLow", params)
 }
 
+// CallHighLow calls the raw endpoint using DefaultClient.
 func CallHighLow(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallHighLow(ctx, params)
 }
 
+// CallHomeRunDerby calls the raw "homeRunDerby" endpoint using the receiver client.
 func (c *Client) CallHomeRunDerby(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "homeRunDerby", params)
 }
 
+// CallHomeRunDerby calls the raw endpoint using DefaultClient.
 func CallHomeRunDerby(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallHomeRunDerby(ctx, params)
 }
 
+// CallJobs calls the raw "jobs" endpoint using the receiver client.
 func (c *Client) CallJobs(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "jobs", params)
 }
 
+// CallJobs calls the raw endpoint using DefaultClient.
 func CallJobs(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallJobs(ctx, params)
 }
 
+// CallJobsDatacasters calls the raw "jobs_datacasters" endpoint using the receiver client.
 func (c *Client) CallJobsDatacasters(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "jobs_datacasters", params)
 }
 
+// CallJobsDatacasters calls the raw endpoint using DefaultClient.
 func CallJobsDatacasters(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallJobsDatacasters(ctx, params)
 }
 
+// CallJobsOfficialScorers calls the raw "jobs_officialScorers" endpoint using the receiver client.
 func (c *Client) CallJobsOfficialScorers(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "jobs_officialScorers", params)
 }
 
+// CallJobsOfficialScorers calls the raw endpoint using DefaultClient.
 func CallJobsOfficialScorers(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallJobsOfficialScorers(ctx, params)
 }
 
+// CallJobsUmpireGames calls the raw "jobs_umpire_games" endpoint using the receiver client.
 func (c *Client) CallJobsUmpireGames(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "jobs_umpire_games", params)
 }
 
+// CallJobsUmpireGames calls the raw endpoint using DefaultClient.
 func CallJobsUmpireGames(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallJobsUmpireGames(ctx, params)
 }
 
+// CallJobsUmpires calls the raw "jobs_umpires" endpoint using the receiver client.
 func (c *Client) CallJobsUmpires(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "jobs_umpires", params)
 }
 
+// CallJobsUmpires calls the raw endpoint using DefaultClient.
 func CallJobsUmpires(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallJobsUmpires(ctx, params)
 }
 
+// CallLeague calls the raw "league" endpoint using the receiver client.
 func (c *Client) CallLeague(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "league", params)
 }
 
+// CallLeague calls the raw endpoint using DefaultClient.
 func CallLeague(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallLeague(ctx, params)
 }
 
+// CallLeagueAllStarBallot calls the raw "league_allStarBallot" endpoint using the receiver client.
 func (c *Client) CallLeagueAllStarBallot(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "league_allStarBallot", params)
 }
 
+// CallLeagueAllStarBallot calls the raw endpoint using DefaultClient.
 func CallLeagueAllStarBallot(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallLeagueAllStarBallot(ctx, params)
 }
 
+// CallLeagueAllStarFinalVote calls the raw "league_allStarFinalVote" endpoint using the receiver client.
 func (c *Client) CallLeagueAllStarFinalVote(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "league_allStarFinalVote", params)
 }
 
+// CallLeagueAllStarFinalVote calls the raw endpoint using DefaultClient.
 func CallLeagueAllStarFinalVote(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallLeagueAllStarFinalVote(ctx, params)
 }
 
+// CallLeagueAllStarWriteIns calls the raw "league_allStarWriteIns" endpoint using the receiver client.
 func (c *Client) CallLeagueAllStarWriteIns(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "league_allStarWriteIns", params)
 }
 
+// CallLeagueAllStarWriteIns calls the raw endpoint using DefaultClient.
 func CallLeagueAllStarWriteIns(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallLeagueAllStarWriteIns(ctx, params)
 }
 
+// CallMeta calls the raw "meta" endpoint using the receiver client.
 func (c *Client) CallMeta(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "meta", params)
 }
 
+// CallMeta calls the raw endpoint using DefaultClient.
 func CallMeta(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallMeta(ctx, params)
 }
 
+// CallPeople calls the raw "people" endpoint using the receiver client.
 func (c *Client) CallPeople(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "people", params)
 }
 
+// CallPeople calls the raw endpoint using DefaultClient.
 func CallPeople(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallPeople(ctx, params)
 }
 
+// CallPeopleChanges calls the raw "people_changes" endpoint using the receiver client.
 func (c *Client) CallPeopleChanges(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "people_changes", params)
 }
 
+// CallPeopleChanges calls the raw endpoint using DefaultClient.
 func CallPeopleChanges(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallPeopleChanges(ctx, params)
 }
 
+// CallPeopleFreeAgents calls the raw "people_freeAgents" endpoint using the receiver client.
 func (c *Client) CallPeopleFreeAgents(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "people_freeAgents", params)
 }
 
+// CallPeopleFreeAgents calls the raw endpoint using DefaultClient.
 func CallPeopleFreeAgents(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallPeopleFreeAgents(ctx, params)
 }
 
+// CallPerson calls the raw "person" endpoint using the receiver client.
 func (c *Client) CallPerson(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "person", params)
 }
 
+// CallPerson calls the raw endpoint using DefaultClient.
 func CallPerson(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallPerson(ctx, params)
 }
 
+// CallPersonStats calls the raw "person_stats" endpoint using the receiver client.
 func (c *Client) CallPersonStats(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "person_stats", params)
 }
 
+// CallPersonStats calls the raw endpoint using DefaultClient.
 func CallPersonStats(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallPersonStats(ctx, params)
 }
 
+// CallSchedule calls the raw "schedule" endpoint using the receiver client.
 func (c *Client) CallSchedule(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "schedule", params)
 }
 
+// CallSchedule calls the raw endpoint using DefaultClient.
 func CallSchedule(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSchedule(ctx, params)
 }
 
+// CallSchedulePostseason calls the raw "schedule_postseason" endpoint using the receiver client.
 func (c *Client) CallSchedulePostseason(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "schedule_postseason", params)
 }
 
+// CallSchedulePostseason calls the raw endpoint using DefaultClient.
 func CallSchedulePostseason(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSchedulePostseason(ctx, params)
 }
 
+// CallSchedulePostseasonSeries calls the raw "schedule_postseason_series" endpoint using the receiver client.
 func (c *Client) CallSchedulePostseasonSeries(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "schedule_postseason_series", params)
 }
 
+// CallSchedulePostseasonSeries calls the raw endpoint using DefaultClient.
 func CallSchedulePostseasonSeries(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSchedulePostseasonSeries(ctx, params)
 }
 
+// CallSchedulePostseasonTuneIn calls the raw "schedule_postseason_tuneIn" endpoint using the receiver client.
 func (c *Client) CallSchedulePostseasonTuneIn(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "schedule_postseason_tuneIn", params)
 }
 
+// CallSchedulePostseasonTuneIn calls the raw endpoint using DefaultClient.
 func CallSchedulePostseasonTuneIn(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSchedulePostseasonTuneIn(ctx, params)
 }
 
+// CallScheduleTied calls the raw "schedule_tied" endpoint using the receiver client.
 func (c *Client) CallScheduleTied(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "schedule_tied", params)
 }
 
+// CallScheduleTied calls the raw endpoint using DefaultClient.
 func CallScheduleTied(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallScheduleTied(ctx, params)
 }
 
+// CallSeason calls the raw "season" endpoint using the receiver client.
 func (c *Client) CallSeason(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "season", params)
 }
 
+// CallSeason calls the raw endpoint using DefaultClient.
 func CallSeason(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSeason(ctx, params)
 }
 
+// CallSeasons calls the raw "seasons" endpoint using the receiver client.
 func (c *Client) CallSeasons(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "seasons", params)
 }
 
+// CallSeasons calls the raw endpoint using DefaultClient.
 func CallSeasons(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSeasons(ctx, params)
 }
 
+// CallSports calls the raw "sports" endpoint using the receiver client.
 func (c *Client) CallSports(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "sports", params)
 }
 
+// CallSports calls the raw endpoint using DefaultClient.
 func CallSports(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSports(ctx, params)
 }
 
+// CallSportsPlayers calls the raw "sports_players" endpoint using the receiver client.
 func (c *Client) CallSportsPlayers(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "sports_players", params)
 }
 
+// CallSportsPlayers calls the raw endpoint using DefaultClient.
 func CallSportsPlayers(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallSportsPlayers(ctx, params)
 }
 
+// CallStandings calls the raw "standings" endpoint using the receiver client.
 func (c *Client) CallStandings(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "standings", params)
 }
 
+// CallStandings calls the raw endpoint using DefaultClient.
 func CallStandings(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallStandings(ctx, params)
 }
 
+// CallStats calls the raw "stats" endpoint using the receiver client.
 func (c *Client) CallStats(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "stats", params)
 }
 
+// CallStats calls the raw endpoint using DefaultClient.
 func CallStats(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallStats(ctx, params)
 }
 
+// CallStatsLeaders calls the raw "stats_leaders" endpoint using the receiver client.
 func (c *Client) CallStatsLeaders(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "stats_leaders", params)
 }
 
+// CallStatsLeaders calls the raw endpoint using DefaultClient.
 func CallStatsLeaders(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallStatsLeaders(ctx, params)
 }
 
+// CallStatsStreaks calls the raw "stats_streaks" endpoint using the receiver client.
 func (c *Client) CallStatsStreaks(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "stats_streaks", params)
 }
 
+// CallStatsStreaks calls the raw endpoint using DefaultClient.
 func CallStatsStreaks(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallStatsStreaks(ctx, params)
 }
 
+// CallTeam calls the raw "team" endpoint using the receiver client.
 func (c *Client) CallTeam(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team", params)
 }
 
+// CallTeam calls the raw endpoint using DefaultClient.
 func CallTeam(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeam(ctx, params)
 }
 
+// CallTeamAlumni calls the raw "team_alumni" endpoint using the receiver client.
 func (c *Client) CallTeamAlumni(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_alumni", params)
 }
 
+// CallTeamAlumni calls the raw endpoint using DefaultClient.
 func CallTeamAlumni(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamAlumni(ctx, params)
 }
 
+// CallTeamCoaches calls the raw "team_coaches" endpoint using the receiver client.
 func (c *Client) CallTeamCoaches(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_coaches", params)
 }
 
+// CallTeamCoaches calls the raw endpoint using DefaultClient.
 func CallTeamCoaches(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamCoaches(ctx, params)
 }
 
+// CallTeamLeaders calls the raw "team_leaders" endpoint using the receiver client.
 func (c *Client) CallTeamLeaders(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_leaders", params)
 }
 
+// CallTeamLeaders calls the raw endpoint using DefaultClient.
 func CallTeamLeaders(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamLeaders(ctx, params)
 }
 
+// CallTeamPersonnel calls the raw "team_personnel" endpoint using the receiver client.
 func (c *Client) CallTeamPersonnel(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_personnel", params)
 }
 
+// CallTeamPersonnel calls the raw endpoint using DefaultClient.
 func CallTeamPersonnel(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamPersonnel(ctx, params)
 }
 
+// CallTeamRoster calls the raw "team_roster" endpoint using the receiver client.
 func (c *Client) CallTeamRoster(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_roster", params)
 }
 
+// CallTeamRoster calls the raw endpoint using DefaultClient.
 func CallTeamRoster(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamRoster(ctx, params)
 }
 
+// CallTeamStats calls the raw "team_stats" endpoint using the receiver client.
 func (c *Client) CallTeamStats(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_stats", params)
 }
 
+// CallTeamStats calls the raw endpoint using DefaultClient.
 func CallTeamStats(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamStats(ctx, params)
 }
 
+// CallTeamUniforms calls the raw "team_uniforms" endpoint using the receiver client.
 func (c *Client) CallTeamUniforms(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "team_uniforms", params)
 }
 
+// CallTeamUniforms calls the raw endpoint using DefaultClient.
 func CallTeamUniforms(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamUniforms(ctx, params)
 }
 
+// CallTeams calls the raw "teams" endpoint using the receiver client.
 func (c *Client) CallTeams(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "teams", params)
 }
 
+// CallTeams calls the raw endpoint using DefaultClient.
 func CallTeams(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeams(ctx, params)
 }
 
+// CallTeamsAffiliates calls the raw "teams_affiliates" endpoint using the receiver client.
 func (c *Client) CallTeamsAffiliates(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "teams_affiliates", params)
 }
 
+// CallTeamsAffiliates calls the raw endpoint using DefaultClient.
 func CallTeamsAffiliates(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamsAffiliates(ctx, params)
 }
 
+// CallTeamsHistory calls the raw "teams_history" endpoint using the receiver client.
 func (c *Client) CallTeamsHistory(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "teams_history", params)
 }
 
+// CallTeamsHistory calls the raw endpoint using DefaultClient.
 func CallTeamsHistory(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamsHistory(ctx, params)
 }
 
+// CallTeamsStats calls the raw "teams_stats" endpoint using the receiver client.
 func (c *Client) CallTeamsStats(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "teams_stats", params)
 }
 
+// CallTeamsStats calls the raw endpoint using DefaultClient.
 func CallTeamsStats(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTeamsStats(ctx, params)
 }
 
+// CallTransactions calls the raw "transactions" endpoint using the receiver client.
 func (c *Client) CallTransactions(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "transactions", params)
 }
 
+// CallTransactions calls the raw endpoint using DefaultClient.
 func CallTransactions(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallTransactions(ctx, params)
 }
 
+// CallVenue calls the raw "venue" endpoint using the receiver client.
 func (c *Client) CallVenue(ctx context.Context, params Params) (JSON, error) {
 	return c.Get(ctx, "venue", params)
 }
 
+// CallVenue calls the raw endpoint using DefaultClient.
 func CallVenue(ctx context.Context, params Params) (JSON, error) {
 	return DefaultClient.CallVenue(ctx, params)
 }
