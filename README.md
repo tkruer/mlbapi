@@ -21,6 +21,10 @@ Import it as:
 import mlbapi "github.com/tkruer/mlbapi/pkg"
 ```
 
+Current package version:
+
+- `v0.0.1`
+
 ## Quick Start
 
 ```go
@@ -217,6 +221,17 @@ make integration-test
 ```
 
 The live integration workflow is also available as a manual GitHub Actions run in [`/mlbapi/.github/workflows/integration.yml`](/mlbapi/.github/workflows/integration.yml).
+
+## Releases and pkg.go.dev
+
+Go module releases are driven by semantic version tags.
+
+- Branch CI runs automatically on pushes and pull requests for `develop` and `main`
+- A pushed tag such as `v0.0.1` triggers the release workflow in [`/mlbapi/.github/workflows/release.yml`](/mlbapi/.github/workflows/release.yml)
+- The release workflow verifies formatting, linting, tests, race tests, and coverage before creating a GitHub release
+- The release workflow also requests the tagged module version from `proxy.golang.org`, which is what `pkg.go.dev` uses to index new versions
+
+The package exports `mlbapi.Version` so the tagged release version is also available in code.
 
 ## Package Layout
 

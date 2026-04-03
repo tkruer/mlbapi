@@ -39,10 +39,12 @@ var validMetaTypes = map[string]struct{}{
 	"windDirection":      {},
 }
 
+// GamePace renders season-level game pace metrics for a sport.
 func GamePace(ctx context.Context, season, sportID int) (string, error) {
 	return DefaultClient.GamePace(ctx, season, sportID)
 }
 
+// GamePace renders season-level game pace metrics for a sport.
 func (c *Client) GamePace(ctx context.Context, season, sportID int) (string, error) {
 	data, err := c.GamePaceData(ctx, season, sportID)
 	if err != nil {
@@ -75,10 +77,12 @@ func (c *Client) GamePace(ctx context.Context, season, sportID int) (string, err
 	return builder.String(), nil
 }
 
+// GamePaceData returns raw game pace metrics for a season and sport.
 func GamePaceData(ctx context.Context, season, sportID int) (JSON, error) {
 	return DefaultClient.GamePaceData(ctx, season, sportID)
 }
 
+// GamePaceData returns raw game pace metrics for a season and sport.
 func (c *Client) GamePaceData(ctx context.Context, season, sportID int) (JSON, error) {
 	params := Params{}
 	if season == 0 {
@@ -101,10 +105,12 @@ func (c *Client) GamePaceData(ctx context.Context, season, sportID int) (JSON, e
 	return response, nil
 }
 
+// PlayerStats renders a player's stats as formatted text.
 func PlayerStats(ctx context.Context, personID int, opts PlayerStatOptions) (string, error) {
 	return DefaultClient.PlayerStats(ctx, personID, opts)
 }
 
+// PlayerStats renders a player's stats as formatted text.
 func (c *Client) PlayerStats(ctx context.Context, personID int, opts PlayerStatOptions) (string, error) {
 	player, err := c.PlayerStatData(ctx, personID, opts)
 	if err != nil {
@@ -141,10 +147,12 @@ func (c *Client) PlayerStats(ctx context.Context, personID int, opts PlayerStatO
 	return builder.String(), nil
 }
 
+// PlayerStatData returns a typed player summary and stat splits.
 func PlayerStatData(ctx context.Context, personID int, opts PlayerStatOptions) (PlayerSummary, error) {
 	return DefaultClient.PlayerStatData(ctx, personID, opts)
 }
 
+// PlayerStatData returns a typed player summary and stat splits.
 func (c *Client) PlayerStatData(ctx context.Context, personID int, opts PlayerStatOptions) (PlayerSummary, error) {
 	if opts.Type == "" {
 		opts.Type = "season"
@@ -209,10 +217,12 @@ func (c *Client) PlayerStatData(ctx context.Context, personID int, opts PlayerSt
 	return player, nil
 }
 
+// LatestSeason returns the current or most recent season metadata for a sport.
 func LatestSeason(ctx context.Context, sportID int) (JSON, error) {
 	return DefaultClient.LatestSeason(ctx, sportID)
 }
 
+// LatestSeason returns the current or most recent season metadata for a sport.
 func (c *Client) LatestSeason(ctx context.Context, sportID int) (JSON, error) {
 	if sportID == 0 {
 		sportID = 1
@@ -242,10 +252,12 @@ func (c *Client) LatestSeason(ctx context.Context, sportID int) (JSON, error) {
 	return asMap(seasons[len(seasons)-1]), nil
 }
 
+// LookupPlayer searches players for names and other common identifiers.
 func LookupPlayer(ctx context.Context, lookup string, opts LookupPlayerOptions) ([]PlayerLookup, error) {
 	return DefaultClient.LookupPlayer(ctx, lookup, opts)
 }
 
+// LookupPlayer searches players for names and other common identifiers.
 func (c *Client) LookupPlayer(ctx context.Context, lookup string, opts LookupPlayerOptions) ([]PlayerLookup, error) {
 	if opts.SportID == 0 {
 		opts.SportID = 1
@@ -284,10 +296,12 @@ func (c *Client) LookupPlayer(ctx context.Context, lookup string, opts LookupPla
 	return players, nil
 }
 
+// LookupTeam searches teams by name, abbreviation, and related aliases.
 func LookupTeam(ctx context.Context, lookup string, opts LookupTeamOptions) ([]Team, error) {
 	return DefaultClient.LookupTeam(ctx, lookup, opts)
 }
 
+// LookupTeam searches teams by name, abbreviation, and related aliases.
 func (c *Client) LookupTeam(ctx context.Context, lookup string, opts LookupTeamOptions) ([]Team, error) {
 	if opts.ActiveStatus == "" {
 		opts.ActiveStatus = "Y"
@@ -327,10 +341,12 @@ func (c *Client) LookupTeam(ctx context.Context, lookup string, opts LookupTeamO
 	return teams, nil
 }
 
+// TeamLeaders renders leaderboard rows for a team and category set.
 func TeamLeaders(ctx context.Context, teamID TeamID, leaderCategories string, opts TeamLeaderOptions) (string, error) {
 	return DefaultClient.TeamLeaders(ctx, teamID, leaderCategories, opts)
 }
 
+// TeamLeaders renders leaderboard rows for a team and category set.
 func (c *Client) TeamLeaders(ctx context.Context, teamID TeamID, leaderCategories string, opts TeamLeaderOptions) (string, error) {
 	lines, err := c.TeamLeaderData(ctx, teamID, leaderCategories, opts)
 	if err != nil {
@@ -345,10 +361,12 @@ func (c *Client) TeamLeaders(ctx context.Context, teamID TeamID, leaderCategorie
 	return builder.String(), nil
 }
 
+// TeamLeaderData returns typed leaderboard rows for a team and category set.
 func TeamLeaderData(ctx context.Context, teamID TeamID, leaderCategories string, opts TeamLeaderOptions) ([]LeaderEntry, error) {
 	return DefaultClient.TeamLeaderData(ctx, teamID, leaderCategories, opts)
 }
 
+// TeamLeaderData returns typed leaderboard rows for a team and category set.
 func (c *Client) TeamLeaderData(ctx context.Context, teamID TeamID, leaderCategories string, opts TeamLeaderOptions) ([]LeaderEntry, error) {
 	if opts.Season == 0 {
 		opts.Season = currentYear()
@@ -389,10 +407,12 @@ func (c *Client) TeamLeaderData(ctx context.Context, teamID TeamID, leaderCatego
 	return leaders, nil
 }
 
+// LeagueLeaders renders league leaderboard rows for the requested categories.
 func LeagueLeaders(ctx context.Context, leaderCategories string, opts LeagueLeaderOptions) (string, error) {
 	return DefaultClient.LeagueLeaders(ctx, leaderCategories, opts)
 }
 
+// LeagueLeaders renders league leaderboard rows for the requested categories.
 func (c *Client) LeagueLeaders(ctx context.Context, leaderCategories string, opts LeagueLeaderOptions) (string, error) {
 	lines, err := c.LeagueLeaderData(ctx, leaderCategories, opts)
 	if err != nil {
@@ -407,10 +427,12 @@ func (c *Client) LeagueLeaders(ctx context.Context, leaderCategories string, opt
 	return builder.String(), nil
 }
 
+// LeagueLeaderData returns typed league leaderboard rows.
 func LeagueLeaderData(ctx context.Context, leaderCategories string, opts LeagueLeaderOptions) ([]LeaderEntry, error) {
 	return DefaultClient.LeagueLeaderData(ctx, leaderCategories, opts)
 }
 
+// LeagueLeaderData returns typed league leaderboard rows.
 func (c *Client) LeagueLeaderData(ctx context.Context, leaderCategories string, opts LeagueLeaderOptions) ([]LeaderEntry, error) {
 	if opts.Limit == 0 {
 		opts.Limit = 10
@@ -473,10 +495,12 @@ func (c *Client) LeagueLeaderData(ctx context.Context, leaderCategories string, 
 	return leaders, nil
 }
 
+// Standings renders division standings for the requested filters.
 func Standings(ctx context.Context, opts StandingsOptions) (string, error) {
 	return DefaultClient.Standings(ctx, opts)
 }
 
+// Standings renders division standings for the requested filters.
 func (c *Client) Standings(ctx context.Context, opts StandingsOptions) (string, error) {
 	divisions, err := c.StandingsData(ctx, opts)
 	if err != nil {
@@ -521,10 +545,12 @@ func (c *Client) Standings(ctx context.Context, opts StandingsOptions) (string, 
 	return builder.String(), nil
 }
 
+// StandingsData returns typed division standings for the requested filters.
 func StandingsData(ctx context.Context, opts StandingsOptions) ([]DivisionStandings, error) {
 	return DefaultClient.StandingsData(ctx, opts)
 }
 
+// StandingsData returns typed division standings for the requested filters.
 func (c *Client) StandingsData(ctx context.Context, opts StandingsOptions) ([]DivisionStandings, error) {
 	if opts.LeagueID == "" {
 		opts.LeagueID = "103,104"
@@ -603,10 +629,12 @@ func (c *Client) StandingsData(ctx context.Context, opts StandingsOptions) ([]Di
 	return divisions, nil
 }
 
+// Roster renders a team's roster for the requested season or date.
 func Roster(ctx context.Context, teamID TeamID, opts RosterOptions) (string, error) {
 	return DefaultClient.Roster(ctx, teamID, opts)
 }
 
+// Roster renders a team's roster for the requested season or date.
 func (c *Client) Roster(ctx context.Context, teamID TeamID, opts RosterOptions) (string, error) {
 	if opts.RosterType == "" {
 		opts.RosterType = "active"
@@ -642,10 +670,12 @@ func (c *Client) Roster(ctx context.Context, teamID TeamID, opts RosterOptions) 
 	return builder.String(), nil
 }
 
+// Meta returns metadata entries for one of the supported meta types.
 func Meta(ctx context.Context, metaType string) (JSON, error) {
 	return DefaultClient.Meta(ctx, metaType)
 }
 
+// Meta returns metadata entries for one of the supported meta types.
 func (c *Client) Meta(ctx context.Context, metaType string) (JSON, error) {
 	if _, ok := validMetaTypes[metaType]; !ok {
 		valid := make([]string, 0, len(validMetaTypes))
