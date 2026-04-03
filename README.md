@@ -7,7 +7,7 @@ It provides two layers:
 - Typed helper functions for common workflows such as schedules, standings, lookups, box scores, highlights, roster output, and player summaries.
 - Raw endpoint access through a reusable `Client`, generic `Get`, and endpoint-specific `Call...` methods.
 
-The Go package lives in [`/Users/tylerkruer/code/mlbapi/pkg`](/Users/tylerkruer/code/mlbapi/pkg).
+The Go package lives in [`/mlbapi/pkg`](/mlbapi/pkg).
 
 ## Installation
 
@@ -216,18 +216,18 @@ To run the live integration tests that verify real `200 OK` responses from `stat
 make integration-test
 ```
 
-The live integration workflow is also available as a manual GitHub Actions run in [`/Users/tylerkruer/code/mlbapi/.github/workflows/integration.yml`](/Users/tylerkruer/code/mlbapi/.github/workflows/integration.yml).
+The live integration workflow is also available as a manual GitHub Actions run in [`/mlbapi/.github/workflows/integration.yml`](/mlbapi/.github/workflows/integration.yml).
 
 ## Package Layout
 
 Main package files:
 
-- [pkg/client.go](/Users/tylerkruer/code/mlbapi/pkg/client.go)
-- [pkg/types.go](/Users/tylerkruer/code/mlbapi/pkg/types.go)
-- [pkg/schedule.go](/Users/tylerkruer/code/mlbapi/pkg/schedule.go)
-- [pkg/boxscore.go](/Users/tylerkruer/code/mlbapi/pkg/boxscore.go)
-- [pkg/stats.go](/Users/tylerkruer/code/mlbapi/pkg/stats.go)
-- [pkg/teams.go](/Users/tylerkruer/code/mlbapi/pkg/teams.go)
+- [pkg/client.go](/mlbapi/pkg/client.go)
+- [pkg/types.go](/mlbapi/pkg/types.go)
+- [pkg/schedule.go](/mlbapi/pkg/schedule.go)
+- [pkg/boxscore.go](/mlbapi/pkg/boxscore.go)
+- [pkg/stats.go](/mlbapi/pkg/stats.go)
+- [pkg/teams.go](/mlbapi/pkg/teams.go)
 
 ## Status
 
