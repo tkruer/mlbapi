@@ -6,10 +6,11 @@ PKG ?= ./...
 GOFILES := $(shell find pkg -type f -name '*.go' | sort)
 COVERPROFILE ?= .coverage/coverage.out
 
-.PHONY: help fmt fmt-check vet test test-race integration-test cover lint ci clean
+.PHONY: help version fmt fmt-check vet test test-race integration-test cover lint ci clean
 
 help:
 	@printf "Targets:\n"
+	@printf "  make version    Print the package release version\n"
 	@printf "  make fmt        Format Go sources\n"
 	@printf "  make fmt-check  Fail if formatting is needed\n"
 	@printf "  make vet        Run go vet\n"
@@ -20,6 +21,9 @@ help:
 	@printf "  make lint       Run golangci-lint\n"
 	@printf "  make ci         Run the local CI contract\n"
 	@printf "  make clean      Remove local build artifacts\n"
+
+version:
+	@awk -F'"' '/^const Version = / {print $$2}' pkg/mlbapi.go
 
 fmt:
 	@$(GO) fmt $(PKG)

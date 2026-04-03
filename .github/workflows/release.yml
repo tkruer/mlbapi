@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  MODULE_PATH: github.com/tkruer/mlbapi
+
+jobs:
+  verify:
+    name: Verify Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Verify tag matches package version
+        run: test "$(make version)" = "${GITHUB_REF_NAME}"
+
+      - name: Verify formatting
+        run: make fmt-check
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.6
+          args: ./...
+
+      - name: Run go vet
+        run: make vet
+
+      - name: Run tests
+        run: make test
+
+      - name: Run race tests
+        run: make test-race
+
+      - name: Run coverage
+        run: make cover
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-coverage-${{ github.ref_name }}
+          path: .coverage/coverage.out
+          if-no-files-found: error
+
+  publish:
+    name: Publish Release
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" --verify-tag --generate-notes --title "${GITHUB_REF_NAME}"
+
+      - name: Request Go module indexing
+        run: |
+          for attempt in $(seq 1 12); do
+            if curl --fail --silent --show-error \
+              "https://proxy.golang.org/${MODULE_PATH}/@v/${GITHUB_REF_NAME}.info" >/dev/null; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "module version ${GITHUB_REF_NAME} was not indexed in time" >&2
+          exit 1

@@ -6,10 +6,12 @@ import (
 	"strings"
 )
 
+// Boxscore renders a text boxscore for a game.
 func Boxscore(ctx context.Context, gamePK int, opts BoxscoreOptions) (string, error) {
 	return DefaultClient.Boxscore(ctx, gamePK, opts)
 }
 
+// Boxscore renders a text boxscore for a game.
 func (c *Client) Boxscore(ctx context.Context, gamePK int, opts BoxscoreOptions) (string, error) {
 	data, err := c.BoxscoreData(ctx, gamePK, opts.Timecode)
 	if err != nil {
@@ -155,10 +157,12 @@ func (c *Client) Boxscore(ctx context.Context, gamePK int, opts BoxscoreOptions)
 	return builder.String(), nil
 }
 
+// BoxscoreDataForGame returns parsed boxscore data for a game.
 func BoxscoreDataForGame(ctx context.Context, gamePK int, timecode string) (BoxscoreData, error) {
 	return DefaultClient.BoxscoreData(ctx, gamePK, timecode)
 }
 
+// BoxscoreData returns parsed boxscore data for a game.
 func (c *Client) BoxscoreData(ctx context.Context, gamePK int, timecode string) (BoxscoreData, error) {
 	params := Params{
 		"gamePk": gamePK,
@@ -411,10 +415,12 @@ func (c *Client) BoxscoreData(ctx context.Context, gamePK int, timecode string) 
 	return data, nil
 }
 
+// Linescore renders an inning-by-inning linescore for a game.
 func Linescore(ctx context.Context, gamePK int, timecode string) (string, error) {
 	return DefaultClient.Linescore(ctx, gamePK, timecode)
 }
 
+// Linescore renders an inning-by-inning linescore for a game.
 func (c *Client) Linescore(ctx context.Context, gamePK int, timecode string) (string, error) {
 	params := Params{
 		"gamePk": gamePK,

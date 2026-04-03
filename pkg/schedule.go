@@ -7,10 +7,12 @@ import (
 	"strings"
 )
 
+// Schedule returns parsed schedule data for the requested filters.
 func Schedule(ctx context.Context, opts ScheduleOptions) ([]ScheduleGame, error) {
 	return DefaultClient.Schedule(ctx, opts)
 }
 
+// Schedule returns parsed schedule data for the requested filters.
 func (c *Client) Schedule(ctx context.Context, opts ScheduleOptions) ([]ScheduleGame, error) {
 	if opts.EndDate != "" && opts.StartDate == "" {
 		opts.Date = opts.EndDate
@@ -158,10 +160,12 @@ func (c *Client) Schedule(ctx context.Context, opts ScheduleOptions) ([]Schedule
 	return games, nil
 }
 
+// LastGame returns the most recent completed game ID for a team.
 func LastGame(ctx context.Context, teamID TeamID) (int, bool, error) {
 	return DefaultClient.LastGame(ctx, teamID)
 }
 
+// LastGame returns the most recent completed game ID for a team.
 func (c *Client) LastGame(ctx context.Context, teamID TeamID) (int, bool, error) {
 	response, err := c.CallTeam(ctx, Params{
 		"teamId":  teamID,
@@ -193,10 +197,12 @@ func (c *Client) LastGame(ctx context.Context, teamID TeamID) (int, bool, error)
 	return lastCompleted, found, nil
 }
 
+// NextGame returns the next scheduled game ID for a team.
 func NextGame(ctx context.Context, teamID TeamID) (int, bool, error) {
 	return DefaultClient.NextGame(ctx, teamID)
 }
 
+// NextGame returns the next scheduled game ID for a team.
 func (c *Client) NextGame(ctx context.Context, teamID TeamID) (int, bool, error) {
 	response, err := c.CallTeam(ctx, Params{
 		"teamId":  teamID,
@@ -224,10 +230,12 @@ func (c *Client) NextGame(ctx context.Context, teamID TeamID) (int, bool, error)
 	return 0, false, nil
 }
 
+// GameScoringPlays renders scoring-play descriptions for a game.
 func GameScoringPlays(ctx context.Context, gamePK int) (string, error) {
 	return DefaultClient.GameScoringPlays(ctx, gamePK)
 }
 
+// GameScoringPlays renders scoring-play descriptions for a game.
 func (c *Client) GameScoringPlays(ctx context.Context, gamePK int) (string, error) {
 	summary, err := c.GameScoringPlayData(ctx, gamePK)
 	if err != nil {
@@ -254,10 +262,12 @@ func (c *Client) GameScoringPlays(ctx context.Context, gamePK int) (string, erro
 	return builder.String(), nil
 }
 
+// GameScoringPlayData returns parsed scoring-play data for a game.
 func GameScoringPlayData(ctx context.Context, gamePK int) (ScoringPlayData, error) {
 	return DefaultClient.GameScoringPlayData(ctx, gamePK)
 }
 
+// GameScoringPlayData returns parsed scoring-play data for a game.
 func (c *Client) GameScoringPlayData(ctx context.Context, gamePK int) (ScoringPlayData, error) {
 	response, err := c.CallGame(ctx, Params{
 		"gamePk": gamePK,
@@ -312,10 +322,12 @@ func (c *Client) GameScoringPlayData(ctx context.Context, gamePK int) (ScoringPl
 	return data, nil
 }
 
+// GameHighlights renders video highlight summaries for a game.
 func GameHighlights(ctx context.Context, gamePK int) (string, error) {
 	return DefaultClient.GameHighlights(ctx, gamePK)
 }
 
+// GameHighlights renders video highlight summaries for a game.
 func (c *Client) GameHighlights(ctx context.Context, gamePK int) (string, error) {
 	highlights, err := c.GameHighlightData(ctx, gamePK)
 	if err != nil {
@@ -338,10 +350,12 @@ func (c *Client) GameHighlights(ctx context.Context, gamePK int) (string, error)
 	return builder.String(), nil
 }
 
+// GameHighlightData returns parsed highlight items for a game.
 func GameHighlightData(ctx context.Context, gamePK int) ([]HighlightItem, error) {
 	return DefaultClient.GameHighlightData(ctx, gamePK)
 }
 
+// GameHighlightData returns parsed highlight items for a game.
 func (c *Client) GameHighlightData(ctx context.Context, gamePK int) ([]HighlightItem, error) {
 	response, err := c.CallSchedule(ctx, Params{
 		"sportId": 1,
