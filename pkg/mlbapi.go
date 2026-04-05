@@ -4,4 +4,4 @@ package mlbapi
 const DefaultBaseURL = "https://statsapi.mlb.com/api/"
 
 // Version is the current module release tag.
-const Version = "v0.0.1"
+const Version = "dev"

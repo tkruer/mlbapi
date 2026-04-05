@@ -2,11 +2,11 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - main
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-main
   cancel-in-progress: false
 
 permissions:
@@ -16,20 +16,19 @@ env:
   MODULE_PATH: github.com/tkruer/mlbapi
 
 jobs:
-  verify:
-    name: Verify Release
+  release:
+    name: Auto Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
-
-      - name: Verify tag matches package version
-        run: test "$(make version)" = "${GITHUB_REF_NAME}"
 
       - name: Verify formatting
         run: make fmt-check
@@ -55,28 +54,109 @@ jobs:
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-coverage-${{ github.ref_name }}
+          name: release-coverage-${{ github.sha }}
           path: .coverage/coverage.out
           if-no-files-found: error
 
-  publish:
-    name: Publish Release
-    runs-on: ubuntu-latest
-    needs: verify
-    steps:
+      - name: Determine next semantic version
+        id: semver
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git fetch --force --tags
+
+          latest_tag="$(git tag -l 'v*.*.*' --sort=-v:refname | head -n 1 || true)"
+          if [[ -n "${latest_tag}" ]]; then
+            commit_range="${latest_tag}..HEAD"
+          else
+            latest_tag="v0.0.0"
+            commit_range="HEAD"
+          fi
+
+          bump="none"
+          has_commits="false"
+          while IFS= read -r -d '' commit_message; do
+            has_commits="true"
+            if grep -Eq 'BREAKING CHANGE:' <<<"${commit_message}"; then
+              bump="major"
+              break
+            fi
+
+            subject="$(head -n 1 <<<"${commit_message}")"
+            if grep -Eq '^[a-z]+(\([^)]+\))?!:' <<<"${subject}"; then
+              bump="major"
+              break
+            fi
+
+            if [[ "${bump}" != "minor" ]] && grep -Eq '^feat(\([^)]+\))?:' <<<"${subject}"; then
+              bump="minor"
+              continue
+            fi
+
+            if [[ "${bump}" == "none" ]] && grep -Eq '^fix(\([^)]+\))?:' <<<"${subject}"; then
+              bump="patch"
+            fi
+          done < <(git log --format='%s%n%b%x00' ${commit_range})
+
+          if [[ "${has_commits}" == "false" || "${bump}" == "none" ]]; then
+            echo 'should_release=false' >>"${GITHUB_OUTPUT}"
+            echo "latest_tag=${latest_tag}" >>"${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          IFS='.' read -r major minor patch <<<"${latest_tag#v}"
+          case "${bump}" in
+            major)
+              major=$((major + 1))
+              minor=0
+              patch=0
+              ;;
+            minor)
+              minor=$((minor + 1))
+              patch=0
+              ;;
+            patch)
+              patch=$((patch + 1))
+              ;;
+          esac
+
+          next_version="v${major}.${minor}.${patch}"
+          echo "should_release=true" >>"${GITHUB_OUTPUT}"
+          echo "latest_tag=${latest_tag}" >>"${GITHUB_OUTPUT}"
+          echo "bump=${bump}" >>"${GITHUB_OUTPUT}"
+          echo "version=${next_version}" >>"${GITHUB_OUTPUT}"
+
+      - name: Create and push tag
+        if: steps.semver.outputs.should_release == 'true'
+        env:
+          VERSION: ${{ steps.semver.outputs.version }}
+        run: |
+          git tag "${VERSION}" "${GITHUB_SHA}"
+          git push origin "${VERSION}"
+
       - name: Create GitHub release
+        if: steps.semver.outputs.should_release == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${GITHUB_REF_NAME}" --verify-tag --generate-notes --title "${GITHUB_REF_NAME}"
+          VERSION: ${{ steps.semver.outputs.version }}
+        run: gh release create "${VERSION}" --verify-tag --generate-notes --title "${VERSION}"
 
       - name: Request Go module indexing
+        if: steps.semver.outputs.should_release == 'true'
+        env:
+          VERSION: ${{ steps.semver.outputs.version }}
         run: |
           for attempt in $(seq 1 12); do
             if curl --fail --silent --show-error \
-              "https://proxy.golang.org/${MODULE_PATH}/@v/${GITHUB_REF_NAME}.info" >/dev/null; then
+              "https://proxy.golang.org/${MODULE_PATH}/@v/${VERSION}.info" >/dev/null; then
               exit 0
             fi
             sleep 10
           done
-          echo "module version ${GITHUB_REF_NAME} was not indexed in time" >&2
+          echo "module version ${VERSION} was not indexed in time" >&2
           exit 1
+
+      - name: No release required
+        if: steps.semver.outputs.should_release != 'true'
+        run: echo "No releasable commits found since ${{ steps.semver.outputs.latest_tag }}."

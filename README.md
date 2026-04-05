@@ -224,14 +224,19 @@ The live integration workflow is also available as a manual GitHub Actions run i
 
 ## Releases and pkg.go.dev
 
-Go module releases are driven by semantic version tags.
+Go module releases are fully automated on `main` and use conventional commits to compute semantic version bumps.
 
 - Branch CI runs automatically on pushes and pull requests for `develop` and `main`
-- A pushed tag such as `v0.0.1` triggers the release workflow in [`/mlbapi/.github/workflows/release.yml`](/mlbapi/.github/workflows/release.yml)
-- The release workflow verifies formatting, linting, tests, race tests, and coverage before creating a GitHub release
-- The release workflow also requests the tagged module version from `proxy.golang.org`, which is what `pkg.go.dev` uses to index new versions
+- A push to `main` triggers the release workflow in [`/mlbapi/.github/workflows/release.yml`](/mlbapi/.github/workflows/release.yml)
+- The release workflow verifies formatting, linting, tests, race tests, and coverage before creating a release
+- It finds commits since the latest `v*.*.*` tag and applies semver rules:
+  - `BREAKING CHANGE:` or `type!:` (`feat!:` / `fix!:`) → major bump
+  - `feat:` → minor bump
+  - `fix:` → patch bump
+  - other commit types do not create a release
+- When a releasable commit exists, the workflow creates and pushes the next tag, creates a GitHub Release with generated notes, and requests module indexing on `proxy.golang.org`
 
-The package exports `mlbapi.Version` so the tagged release version is also available in code.
+`mlbapi.Version` is set to `"dev"`; Git tags are the canonical source of released versions.
 
 ## Package Layout
 
