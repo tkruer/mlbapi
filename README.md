@@ -257,3 +257,12 @@ This package currently targets the public MLB Stats API and is organized for dir
 - raw endpoint access when you need the full API
 - local tooling for formatting, linting, testing, and coverage
 - opt-in live integration tests for real API verification
+
+## Project documentation site
+
+This repository includes a GitHub Pages documentation site under `docs/`.
+
+- Source docs: `docs/`
+- Deployment workflow: `.github/workflows/docs.yml`
+
+After merging to `main`, the docs site is automatically deployed via GitHub Actions.
